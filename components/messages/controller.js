@@ -31,7 +31,6 @@ const getMessages = () => {
 
 const updateMessage = (id, message) => {
     return new Promise( async (resolve, reject) => {
-        console.log(id, message);
         if (id && message) {
             try {
                 const data = await storage.updateText(id, message);
