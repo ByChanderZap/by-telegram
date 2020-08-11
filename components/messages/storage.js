@@ -19,20 +19,23 @@ const addMessage = (message) => {
     myMessage.save();
 }
 
-const getMessage = async () => {
+const getMessage = async (askUser) => {
+    let filter = {}
+    if(askUser) {
+        filter = { user: askUser };
+    }
+    
     try {
-        const data = await Model.find();
+        const data = await Model.find(filter);
         return data;
     } catch (error) {
-        console.log('Error getting messages');
+        console.log('Error on db request');
         return new Error('Error getting messages')
     }
 }
 
 const updateText = async (id, message) => {
-    const requestedMessage = await Model.findOne({
-        _id: id
-    });
+    const requestedMessage = await Model.findById(id)
     requestedMessage.message = message;
     const messageUpdated = await requestedMessage.save();
     return messageUpdated;

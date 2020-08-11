@@ -5,12 +5,15 @@ const controller = require('./controller.js');
 
 
 router.get('/', async (req, res) => {
+    const { user } = req.query || null;
+    
     try {
-        const allMessages = await controller.getMessages();
-        response.success(req, res, allMessages, 200);
+        const data = await controller.getMessages(user);
+        response.success(req, res, data, 200);
     } catch (error) {
         response.error(req, res, error, 400, 'Error getting getting messages');
     }
+
 });
 
 router.post('/', async (req, res) => {

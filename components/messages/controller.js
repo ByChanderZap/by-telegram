@@ -18,10 +18,10 @@ const addMessage = (username, message) => {
     });
 }
 
-const getMessages = () => {
+const getMessages = (user) => {
     return new Promise( async (resolve, reject) => {
         try {
-            const data = await storage.list();
+            const data = await storage.list(user);
             resolve(data);
         } catch (error) {
             reject(new Error(error))
