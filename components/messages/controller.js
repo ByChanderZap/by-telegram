@@ -3,11 +3,10 @@ const storage = require('./storage.js');
 const addMessage = (username, message) => {
     return new Promise((resolve, reject) => {
         if (!username || !message){
-            console.error('[ADD Message Controller], no hay usuario o mensaje');
+            console.error('[ADD Message Controller], there is not user or message');
             return reject('Incorrect data')
         }
         
-        console.log(`Username is: ${username} and message: ${message}`);
         const fullMessage = {
             user: username,
             message: message,
@@ -20,16 +19,34 @@ const addMessage = (username, message) => {
 }
 
 const getMessages = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise( async (resolve, reject) => {
         try {
-            resolve(storage.list())
+            const data = await storage.list();
+            resolve(data);
         } catch (error) {
             reject(new Error(error))
         }
     })
 }
 
+const updateMessage = (id, message) => {
+    return new Promise( async (resolve, reject) => {
+        console.log(id, message);
+        if (id && message) {
+            try {
+                const data = await storage.updateText(id, message);
+                resolve(data);
+            } catch (error) {
+                reject(new Error(error));
+            }
+        }else {
+            reject(new Error('Missing params'));
+        }
+    });
+};
+
 module.exports = {
     addMessage,
     getMessages,
+    updateMessage,
 }

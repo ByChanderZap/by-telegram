@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const router = require('./network/routes')
  
 const app = express();
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //app.use(router);
 router(app);
 
