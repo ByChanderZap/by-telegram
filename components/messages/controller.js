@@ -44,8 +44,24 @@ const updateMessage = (id, message) => {
     });
 };
 
+const deleteMessage = (id) => {
+    return new Promise( async (resolve, reject) => {
+        if(!id) {
+            reject(new Error('Not ID'));
+        }
+
+        try {
+            const result = await storage.remove(id);
+            resolve(result);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     addMessage,
     getMessages,
     updateMessage,
+    deleteMessage
 }

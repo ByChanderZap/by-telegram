@@ -1,18 +1,5 @@
-const db = require('mongoose');
-const { dbURL } = require('./dbkeys');
-const Model = require('./model.js')
+const Model = require('./model.js');
 
-db.Promise = global.Promise;
-
-try {
-    db.connect(dbURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-    console.log('[DB] Conecction success')
-} catch (error) {
-    console.error(error)
-}
 
 const addMessage = (message) => {
     const myMessage = new Model(message);
@@ -22,9 +9,11 @@ const addMessage = (message) => {
 const getMessage = async (askUser) => {
     let filter = {}
     if(askUser) {
-        filter = { user: askUser };
+        filter = {
+            user: new RegExp(askUser, "i") 
+          };
     }
-    
+
     try {
         const data = await Model.find(filter);
         return data;
@@ -41,11 +30,21 @@ const updateText = async (id, message) => {
     return messageUpdated;
 }
 
-
+const removeMessage = async (id) => {
+    try {
+        const dSuccess = await Model.deleteOne({_id:id})
+        return dSuccess
+    } catch (error) {
+        console.log(new Error('Error on delete'))
+        return(error);
+    }
+    
+}
 
 module.exports = {
     add: addMessage,
     list: getMessage,
     updateText: updateText,
+    remove: removeMessage
     //get, update, delete
 }

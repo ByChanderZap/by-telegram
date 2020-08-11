@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const router = require('./components/messages/network.js')
+const db = require('./db.js')
 const router = require('./network/routes')
  
+db();
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

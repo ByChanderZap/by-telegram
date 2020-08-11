@@ -6,7 +6,7 @@ const controller = require('./controller.js');
 
 router.get('/', async (req, res) => {
     const { user } = req.query || null;
-    
+
     try {
         const data = await controller.getMessages(user);
         response.success(req, res, data, 200);
@@ -40,5 +40,14 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const data = await controller.deleteMessage(id);
+        response.success(req, res, `User ${id} deleted`, 200);
+    } catch (error) {
+        response.error(req, res, "Error deliting message", 400, error);
+    }
+})
 
 module.exports = router;
