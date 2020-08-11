@@ -21,10 +21,10 @@ const addMessage = (username, message) => {
 
 const getMessages = () => {
     return new Promise((resolve, reject) => {
-        if(storage.list()){
+        try {
             resolve(storage.list())
-        }else {
-            reject('No messages saved')
+        } catch (error) {
+            reject(new Error(error))
         }
     })
 }
