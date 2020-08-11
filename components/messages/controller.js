@@ -1,5 +1,6 @@
+const storage = require('./storage.js');
 
-function addMessage(username, message) {
+const addMessage = (username, message) => {
     return new Promise((resolve, reject) => {
         if (!username || !message){
             console.error('[ADD Message Controller], no hay usuario o mensaje');
@@ -12,13 +13,23 @@ function addMessage(username, message) {
             message: message,
             date: new Date(),
         };
-
+        storage.add(fullMessage);
         console.log(fullMessage);
-
         resolve(fullMessage);
     });
 }
 
+const getMessages = () => {
+    return new Promise((resolve, reject) => {
+        if(storage.list()){
+            resolve(storage.list())
+        }else {
+            reject('No messages saved')
+        }
+    })
+}
+
 module.exports = {
     addMessage,
+    getMessages,
 }

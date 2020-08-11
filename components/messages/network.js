@@ -4,11 +4,13 @@ const response = require('../../network/response.js')
 const controller = require('./controller.js');
 
 
-router.get('/', (req, res) => {
-    //    console.log(req.headers);
-    //  res.header({"custom-header": "Valor personalizado"})
-
-    response.success(req, res, "Esto es get, y este es un mensaje desde response.js");
+router.get('/', async (req, res) => {
+    try {
+        const allMessages = await controller.getMessages();
+        response.success(req, res, allMessages, 200);
+    } catch (error) {
+        response.error(req, res, error, 400, 'Error getting getting messages');
+    }
 });
 
 router.post('/', async (req, res) => {
