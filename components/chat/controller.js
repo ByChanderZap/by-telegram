@@ -11,8 +11,15 @@ const createChat = (users) => {
     return storage.CreateChat(newChat);
 }
 
-const listChats = () => {
-
+const listChats = (userId) => {
+    return new Promise( async (resolve, reject) => {
+        try {
+            const data = await storage.getChats(userId);
+            resolve(data);
+        } catch (error) {
+            reject(new Error(error));
+        }
+    });
 }
 
 module.exports = {
