@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
     user: {
-        type: String,
+        type: Schema.ObjectId,
         required: true,
+        ref: 'User'
     },
     message: {
         type: String,

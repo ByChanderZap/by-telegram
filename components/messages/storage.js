@@ -6,21 +6,24 @@ const addMessage = (message) => {
     myMessage.save();
 }
 
-const getMessage = async (askUser) => {
-    let filter = {}
-    if(askUser) {
-        filter = {
-            user: new RegExp(askUser, "i") 
-          };
-    }
+const getMessage = (askUser) => {
+    return new Promise(async (resolve, reject) => {
+        let filter = {}
+        if (askUser) {
+            filter = {
+                user: new RegExp(askUser, "i")
+            };
+        }
 
-    try {
-        const data = await Model.find(filter);
-        return data;
-    } catch (error) {
-        console.log('Error on db request');
-        return new Error('Error getting messages')
-    }
+        Model.find(filter).populate('user').exec((err, populated) => {
+            if (err) {
+                reject(err);
+                return false
+            } else {
+                resolve(populated)
+            }
+        })
+    })
 }
 
 const updateText = async (id, message) => {
@@ -32,13 +35,13 @@ const updateText = async (id, message) => {
 
 const removeMessage = async (id) => {
     try {
-        const dSuccess = await Model.deleteOne({_id:id})
+        const dSuccess = await Model.deleteOne({ _id: id })
         return dSuccess
     } catch (error) {
         console.log(new Error('Error on delete'))
-        return(error);
+        return (error);
     }
-    
+
 }
 
 module.exports = {
