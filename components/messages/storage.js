@@ -11,7 +11,9 @@ const getMessage = (askUser) => {
         let filter = {}
         if (askUser) {
             filter = {
-                user: new RegExp(askUser, "i")
+                user: {
+                    _id: askUser
+                }
             };
         }
 

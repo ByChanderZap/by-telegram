@@ -5,8 +5,7 @@ const controller = require('./controller.js');
 
 
 router.get('/', async (req, res) => {
-    const { user } = req.query || null;
-
+    const { user } = req.body || null;
     try {
         const data = await controller.getMessages(user);
         response.success(req, res, data, 200);
@@ -17,7 +16,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    console.log(req.body)
+    
     try {
         const fullMessage = await controller.addMessage(req.body.user, req.body.message);
         //  req, res, message, status
