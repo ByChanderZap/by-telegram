@@ -1,5 +1,4 @@
 const storage = require('./storage.js');
-const { response } = require('express');
 
 
 const addUser = (name) => {

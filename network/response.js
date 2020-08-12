@@ -4,6 +4,7 @@ exports.success = (req, res, message, status) => {
     });
 }
 
+//  rq, res, error, status, details
 exports.error = (req, res, error, status, details) => {
     //console.log(details);
     console.log(details);
