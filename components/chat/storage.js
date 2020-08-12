@@ -1,7 +1,7 @@
 const Model = require('./model.js');
 
 
-function CreateChat(chat) {
+const CreateChat = (chat) => {
     const myChat = new Model(chat);
     return myChat.save();
 }
