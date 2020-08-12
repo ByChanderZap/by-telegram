@@ -8,7 +8,7 @@ const createChat = (users) => {
         users: users
     }
     //console.log(newChat)
-    return storage.CreateChat(newChat);
+    return storage.createNewChat(newChat);
 }
 
 const listChats = (userId) => {

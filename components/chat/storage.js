@@ -1,7 +1,7 @@
 const Model = require('./model.js');
 
 
-const CreateChat = (chat) => {
+const createNewChat = (chat) => {
     const myChat = new Model(chat);
     return myChat.save();
 }
@@ -28,6 +28,6 @@ const getChats = (userId) => {
 }
 
 module.exports = {
-    CreateChat,
+    createNewChat,
     getChats
 }
