@@ -5,8 +5,11 @@ const addUser = (user) => {
     return myUser.save();
 }
 
+const allUsers = async () => {
+    return Model.find();    
+}
 
 module.exports = {
-    add: addUser,
-    //get, update, delete
+    add: addUser,   //add
+    listAllUsers: allUsers  //  get all
 }
