@@ -1,7 +1,7 @@
 const storage = require('./storage.js');
 
 const createChat = (users) => {
-    if (!users){
+    if (!users || !Array.isArray(users)){
         return Promise.reject('Two users needed');
     }
     const newChat = {

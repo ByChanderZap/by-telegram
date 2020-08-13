@@ -16,14 +16,16 @@ const getChats = (userId) => {
         }
 
         //  Here we will recibe our documents created with the users data on it, and not only a reference
-        Model.find(filter).populate('users').exec((err, populated) => { 
-            if (err) {
-                reject(err);
-                return false
-            } else {
-                resolve(populated)
-            }
-        })
+        Model.find(filter)
+            .populate('users')
+                .exec((err, populated) => { 
+                if (err) {
+                    reject(err);
+                    return false
+                } else {
+                    resolve(populated)
+                }
+            })
     })
 }
 

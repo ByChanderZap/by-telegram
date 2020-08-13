@@ -1,13 +1,14 @@
 const storage = require('./storage.js');
 
-const addMessage = (username, message) => {
+const addMessage = (chat, username, message) => {
     return new Promise((resolve, reject) => {
-        if (!username || !message){
-            console.error('[ADD Message Controller], there is not user or message');
+        if (!username || !message || !chat){
+            console.error('[ADD Message Controller], there is not user message or chat');
             return reject('Incorrect data')
         }
         
         const fullMessage = {
+            chat: chat,
             user: username,
             message: message,
             date: new Date(),
@@ -18,14 +19,9 @@ const addMessage = (username, message) => {
     });
 }
 
-const getMessages = (user) => {
+const getMessages = (chat) => {
     return new Promise( async (resolve, reject) => {
-        try {
-            const data = await storage.list(user);
-            resolve(data);
-        } catch (error) {
-            reject(new Error(error))
-        }
+        resolve(storage.list(chat))
     })
 }
 

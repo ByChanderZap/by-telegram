@@ -6,15 +6,11 @@ const addMessage = (message) => {
     myMessage.save();
 }
 
-const getMessage = (askUser) => {
+const getMessage = (askChat) => {
     return new Promise(async (resolve, reject) => {
         let filter = {}
-        if (askUser) {
-            filter = {
-                user: {
-                    _id: askUser
-                }
-            };
+        if (askChat) {
+            filter = { chat: askChat };
         }
 
         Model.find(filter).populate('user').exec((err, populated) => {

@@ -5,9 +5,9 @@ const controller = require('./controller.js');
 
 
 router.get('/', async (req, res) => {
-    const { user } = req.body || null;
+    const { chat } = req.body || null;
     try {
-        const data = await controller.getMessages(user);
+        const data = await controller.getMessages(chat);
         response.success(req, res, data, 200);
     } catch (error) {
         response.error(req, res, error, 400, 'Error getting getting messages');
@@ -16,9 +16,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    
     try {
-        const fullMessage = await controller.addMessage(req.body.user, req.body.message);
+        const fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message);
         //  req, res, message, status
         response.success(req, res, fullMessage, 201);
     } catch (error) {
