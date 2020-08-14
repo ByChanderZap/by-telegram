@@ -14,7 +14,6 @@ const addMessage = (chat, username, message) => {
             date: new Date(),
         };
         storage.add(fullMessage);
-        console.log(fullMessage);
         resolve(fullMessage);
     });
 }

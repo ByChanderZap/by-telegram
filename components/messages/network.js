@@ -1,8 +1,12 @@
-const express = require('express')
+const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const response = require('../../network/response.js')
 const controller = require('./controller.js');
 
+const upload = multer({
+    dest: 'uploads/',
+})
 
 router.get('/', async (req, res) => {
     const { chat } = req.body || null;
@@ -15,7 +19,7 @@ router.get('/', async (req, res) => {
 
 });
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
     try {
         const fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message);
         //  req, res, message, status
