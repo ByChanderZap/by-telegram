@@ -5,7 +5,7 @@ const response = require('../../network/response.js')
 const controller = require('./controller.js');
 
 const upload = multer({
-    dest: 'uploads/',
+    dest: 'uploads/files/',
 })
 
 router.get('/', async (req, res) => {
@@ -20,9 +20,11 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', upload.single('file'), async (req, res) => {
+    //console.log("hola?", req.file)
     try {
-        const fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message);
+        const fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file);
         //  req, res, message, status
+        console.log(fullMessage)
         response.success(req, res, fullMessage, 201);
     } catch (error) {
         //  req, res, message, status, details

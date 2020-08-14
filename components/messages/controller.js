@@ -1,17 +1,24 @@
 const storage = require('./storage.js');
 
-const addMessage = (chat, username, message) => {
+const addMessage = (chat, username, message, file) => {
     return new Promise((resolve, reject) => {
         if (!username || !message || !chat){
             console.error('[ADD Message Controller], there is not user message or chat');
             return reject('Incorrect data')
         }
-        
+        let filerUrl = '';
+        if(file){
+            // let date = new Date();
+            // file.filename = `${date.getTime()}${file.originalname.slice(-4)}`
+            filerUrl = 'http://localhost:3000/uploads/files/' + file.filename
+        }
+        console.log(filerUrl, 'lolol ', file.filename)
         const fullMessage = {
             chat: chat,
             user: username,
             message: message,
             date: new Date(),
+            file: filerUrl
         };
         storage.add(fullMessage);
         resolve(fullMessage);
