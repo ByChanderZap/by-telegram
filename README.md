@@ -42,6 +42,11 @@ i recommend you hide this file on your .gitignore =D
 npm run dev
 ```
 
+## How see webhook working:
+  - Open: http://localhost:3001/app/
+  - Open the console
+  - Send a new message!
+
 ## Contributing
 Pull requests are welcome!. And if you have an idea for a feature and dont have time to do this, feel free to open a issue!
 
