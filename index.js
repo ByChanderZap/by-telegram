@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const socket = require('./socket.js')
 const db = require('./db.js')
@@ -9,6 +10,7 @@ const router = require('./network/routes.js');
  
 db();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
