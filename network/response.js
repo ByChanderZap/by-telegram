@@ -8,6 +8,7 @@ exports.success = (req, res, message, status) => {
 exports.error = (req, res, error, status, details) => {
     //console.log(details);
     console.log(details);
+    console.log(error)
     
     res.status(status || 500).send({
         error: error,

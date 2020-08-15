@@ -1,4 +1,5 @@
 const storage = require('./storage.js');
+const { socket } = require('../../socket');
 
 const addMessage = (chat, username, message, file) => {
     return new Promise((resolve, reject) => {
@@ -12,7 +13,7 @@ const addMessage = (chat, username, message, file) => {
             // file.filename = `${date.getTime()}${file.originalname.slice(-4)}`
             filerUrl = 'http://localhost:3000/uploads/files/' + file.filename
         }
-        console.log(filerUrl, 'lolol ', file.filename)
+        //console.log(filerUrl, 'lolol ', file.filename)
         const fullMessage = {
             chat: chat,
             user: username,
@@ -21,6 +22,7 @@ const addMessage = (chat, username, message, file) => {
             file: filerUrl
         };
         storage.add(fullMessage);
+        socket.io.emit('message', fullMessage);
         resolve(fullMessage);
     });
 }

@@ -24,7 +24,7 @@ router.post('/', upload.single('file'), async (req, res) => {
     try {
         const fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file);
         //  req, res, message, status
-        console.log(fullMessage)
+        //console.log(fullMessage)
         response.success(req, res, fullMessage, 201);
     } catch (error) {
         //  req, res, message, status, details

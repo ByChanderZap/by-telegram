@@ -1,13 +1,18 @@
 const express = require('express');
+const app = express();
+const server = require('http').Server(app);
 const bodyParser = require('body-parser');
+const socket = require('./socket.js')
 const db = require('./db.js')
-const router = require('./network/routes')
+const router = require('./network/routes.js');
+
  
 db();
 
-const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+socket.connect(server);
 //app.use(router);
 router(app);
 
@@ -17,6 +22,7 @@ router(app);
 
 app.use('/app', express.static('public'))
 
-app.listen(3000);
+server.listen(3000, () => {
+    console.log('Server on port 3000: http://localhost:3000')
+});
 
-console.log('Server on port 3000: http://localhost:3000')
